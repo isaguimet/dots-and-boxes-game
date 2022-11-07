@@ -1,6 +1,56 @@
+body {
+    margin: 0;
+}
+
+* {
+    font-family: AppleGothic, sans-serif;
+}
+
+.main-container {
+    margin: 20px;
+}
+
+.flex-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#dotsBoxesPic {
+    width: 500px;
+    /*height: auto;*/
+    /*padding-left: 50px;*/
+    padding-right: 20px;
+    border-radius: 100PX;
+}
+
+/* Styling for navigation bar */
+nav {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: rgb(122, 165, 200);
+}
+
+nav a {
+    font-size: x-large;
+    font-family: AppleGothic, sans-serif;
+    text-decoration: none;
+    color: black;
+    padding: 35px 5px;
+}
+
+nav a:hover {
+    text-decoration-line: underline;
+}
+
 #myCanvas {
-    border: 2px solid black;
-    background-color: lavender;
-    /*margin-right: auto;*/
-    /*margin-left: auto;*/
+    border-radius: 25px;
+    background-color: #D6F7FF;
+}
+
+#canvasContainer {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    text-align: center;
 }
