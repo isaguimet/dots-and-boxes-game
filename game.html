@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SENG 513 A2 Dots & Boxes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="game.html">Play Dots And Boxes</a>
+        <a href="results.html">See the Results</a>
+    </nav>
+    <div class="main-container">
+        <button onclick="restartGame()">Restart Game</button>
+        <div id="canvasContainer">
+            <canvas id="myCanvas" width="500" height="500"></canvas>
+        </div>
+        <div id="player1">
+            <p>Player 1: 0</p>
+        </div>
+        <div id="player2">
+            <p>Player 2: 0</p>
+        </div>
+        <div id="player3">
+            <p>Player 3: 0</p>
+        </div>
+    </div>
+    <!-- Adding FabricJS CDN scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"
+            integrity="sha512-HkRNCiaZYxQAkHpLFYI90ObSzL0vaIXL8Xe3bM51vhdYI79RDFMLTAsmVH1xVPREmTlUWexgrQMk+c3RBTsLGw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.js"
+            integrity="sha512-q7T9VUu0gBgAGV3YkcvI0wjeBJONO5Cg/+688NkDC6qupjUvEG9ZmNK4GjZWvWuuT1VIjS0abwE1IKXVew8Ohw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script.js"></script>
+</body>
+</html>

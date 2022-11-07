@@ -7,27 +7,50 @@
     <link href="styles.css" rel="stylesheet">
 </head>
 <body>
-  <button onclick="restartGame()">Restart Game</button>
-  <br><br>
-  <!-- Creating game layout -->
-  <canvas id="myCanvas" width="500" height="500"></canvas>
-
-  <div id="player1">
-    <p>Player 1: 0</p>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="game.html">Play Dots And Boxes</a>
+    <a href="results.html">See the Results</a>
+  </nav>
+  <div class="main-container">
+    <div class="flex-container">
+      <div id="game-instructions">
+        <h1>Welcome to the Dots and Boxes game!</h1>
+        <p>
+          In this game, the objective is to be the player with the most completed boxes by adding
+          lines to the board game canvas.
+        </p>
+        <h3><b>How do you play?</b></h3>
+        <p>
+          Players take turns to add lines to the board. Each player can add one line of their color to a grey line that connects
+          2 adjacent dots. Whenever a player completes a box, the box will be colored to the player's color and count one point towards
+          the player's total box count.
+        </p>
+        <p>
+          Players who complete a box, get one extra turn (they get to add another bonus line).
+        </p>
+        <p>
+          The game ends when someone claims the last box. The player who has the most boxes wins the game!
+        </p>
+        <h3><b>How many players can play?</b></h3>
+        <p>
+          Exactly 3 players can play at a time. Player 1 is blue, Player 2 is red, and
+          Player 3 is green.
+        </p>
+        <h3><b>Where do I check out the results?</b></h3>
+        <p>
+          You can check who won the game by clicking on "See the Results" in the navigation bar or
+          by clicking here: <a href="results.html">See the Results!</a>
+          <br><br>
+          Unhappy with your results? Feel free to restart the game in the Game page or the results page
+          by clicking the button "Restart the Game".
+        </p>
+        <h3>Click here to <a href="game.html">play the game!</a></h3>
+      </div>
+<!--      <div id="dotsBoxesPic">-->
+<!--        <img alt="a picture of the dotsAndBoxes game" src="images/gameNightPieces.jpg">-->
+<!--      </div>-->
+    </div>
   </div>
-  <div id="player2">
-    <p>Player 2: 0</p>
-  </div>
-  <div id="player3">
-    <p>Player 3: 0</p>
-  </div>
-  <!-- Adding FabricJS CDN scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.min.js"
-          integrity="sha512-HkRNCiaZYxQAkHpLFYI90ObSzL0vaIXL8Xe3bM51vhdYI79RDFMLTAsmVH1xVPREmTlUWexgrQMk+c3RBTsLGw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.2.4/fabric.js"
-          integrity="sha512-q7T9VUu0gBgAGV3YkcvI0wjeBJONO5Cg/+688NkDC6qupjUvEG9ZmNK4GjZWvWuuT1VIjS0abwE1IKXVew8Ohw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="script.js"></script>
 </body>
 </html>
