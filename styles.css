@@ -1,27 +1,54 @@
-body {
-    margin: 0;
-}
-
 * {
     font-family: AppleGothic, sans-serif;
+}
+
+body {
+    margin: 0;
+    background-color: beige;
+}
+
+/* Styling for the links */
+a {
+    text-decoration: none;
+    color: navy;
+}
+
+p {
+    font-size: large;
 }
 
 .main-container {
     margin: 20px;
 }
 
+/* Styling for button */
+#button-container {
+    display: flex;
+    justify-content: center;
+}
+button {
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: medium;
+    padding: 15px;
+    display: flex;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+
+button:hover {
+    box-shadow: 5px 5px 5px silver;
+}
+
+#endOfGame {
+    text-align: center;
+}
+
 .flex-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
-}
-
-#dotsBoxesPic {
-    width: 500px;
-    /*height: auto;*/
-    /*padding-left: 50px;*/
-    padding-right: 20px;
-    border-radius: 100PX;
 }
 
 /* Styling for navigation bar */
@@ -32,7 +59,7 @@ nav {
 }
 
 nav a {
-    font-size: x-large;
+    font-size: xx-large;
     font-family: AppleGothic, sans-serif;
     text-decoration: none;
     color: black;
@@ -41,6 +68,45 @@ nav a {
 
 nav a:hover {
     text-decoration-line: underline;
+}
+
+#scores-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 20px;
+    font-size: x-large;
+}
+
+.span-player {
+    text-align: center;
+}
+
+#player1-counter {
+    padding: 10px 15px;
+    height: 25px;
+    width: 150px;
+    background-color: lightskyblue;
+    border-radius: 25px;
+    margin-right: 20px;
+}
+
+#player2-counter {
+    padding: 10px 15px;
+    height: 25px;
+    width: 150px;
+    background-color: lightcoral;
+    border-radius: 25px;
+    margin-right: 20px;
+}
+
+#player3-counter {
+    padding: 10px 15px;
+    height: 25px;
+    width: 150px;
+    background-color: lightgreen;
+    border-radius: 25px;
 }
 
 #myCanvas {
@@ -53,4 +119,58 @@ nav a:hover {
     height: 500px;
     margin: auto;
     text-align: center;
+}
+
+#picture {
+    padding-left: 40px;
+    width: 80%;
+    height: 100%;
+}
+
+/* Results page */
+#results-text {
+    text-align: center;
+}
+
+#announce-winner-if-exists {
+    text-align: center;
+    font-size: large;
+}
+
+#results-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.results {
+    width: 33%;
+    text-align: center;
+    margin: auto;
+    padding: 15px;
+    justify-content: center;
+}
+
+#p1-score {
+    font-size: x-large;
+    padding: 10px 10px;
+    height: 75px;
+    background-color: lightskyblue;
+    border-radius: 25px;
+}
+
+#p2-score {
+    font-size: x-large;
+    padding: 10px 10px;
+    height: 75px;
+    background-color: lightcoral;
+    border-radius: 25px;
+}
+
+#p3-score {
+    font-size: x-large;
+    padding: 10px 10px;
+    height: 75px;
+    background-color: lightgreen;
+    border-radius: 25px;
 }

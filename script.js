@@ -1,5 +1,4 @@
 let fabricCanvas = new fabric.Canvas('myCanvas');
-// fabricCanvas.hasControls = false;
 
 const canvasWidth = 500
 const canvasHeight = 500
@@ -8,6 +7,13 @@ const circleRadius = 10
 const horizontalOffset = 60
 const verticalOffset = 60
 const lineDefaultColor = 'rgb(211,211,211)'
+
+let player1Points = document.getElementById('player1-counter');
+let player2Points = document.getElementById('player2-counter');
+let player3Points = document.getElementById('player3-counter');
+
+let extraTurn = false;
+let endOFGame = document.getElementById('endOfGame');
 
 // Initialization of objects
 
@@ -21,15 +27,14 @@ class Player {
 }
 
 // Create 3 players each with unique colors
-const player1 = new Player("player 1", false, "blue", 0);
-const player2 = new Player("player 2", false, "red", 0);
-const player3 = new Player("player 3", false, "green", 0);
+const player1 = new Player("player 1", false, "lightskyblue", 0);
+const player2 = new Player("player 2", false, "lightcoral", 0);
+const player3 = new Player("player 3", false, "lightgreen", 0);
 
 // Create a box class to initialize 9 boxes on canvas
 class Box {
-    // Upon completing a box (all sides are true), change box's color to player's color
-    boxColor = '';
 
+    // Each box has 4 sides and a boolean that says if it has been colored or not.
     constructor(topSide, leftSide, rightSide, bottomSide, colored) {
         this.topSide = topSide;
         this.leftSide = leftSide;
@@ -46,6 +51,7 @@ class Box {
         this.colored = false;
     }
 
+    // Need this, so we don't color boxes that have already been filled (colored)
     isBoxColored() {
         return this.colored;
     }
@@ -55,8 +61,6 @@ class Box {
             && this.rightSide === true && this.bottomSide === true;
     }
 }
-
-// box1.boxColor = player1.myColor;
 
 let circle;
 function drawCircles() {
@@ -403,9 +407,10 @@ function startGame() {
     drawCircles()
     drawLines()
     player1.myTurn = true;
-    if (checkWinningCondition()) {
-        console.log("ITS THE END OF THE GAMe");
-    }
+
+    localStorage.setItem('saved-p1-score', '0');
+    localStorage.setItem('saved-p2-score', '0');
+    localStorage.setItem('saved-p3-score', '0');
 }
 
 startGame()
@@ -413,7 +418,7 @@ startGame()
 function restartGame() {
     fabricCanvas.clear()
 
-    // Reset all boxes' side to false (have not been clicked_
+    // Reset all boxes' side to false (have not been clicked yet)
     box1.resetBoxes();
     box2.resetBoxes();
     box3.resetBoxes();
@@ -426,11 +431,15 @@ function restartGame() {
 
     // Reset all players' points to 0
     player1.myPoints = 0;
+    player1Points.innerText = "Player 1: " + player1.myPoints;
+
     player2.myPoints = 0;
+    player2Points.innerText = "Player 2: " + player2.myPoints;
+
     player3.myPoints = 0;
+    player3Points.innerText = "Player 3: " + player3.myPoints;
 
     startGame()
-    // fabricCanvas.renderAll();
 }
 
 allBoxes = [
@@ -439,7 +448,8 @@ allBoxes = [
     [box7, box8, box9]
 ]
 
-function checkIsBoxCompleted() {
+// If box is completed, then we fill the box with a rectangle with the current player's color.
+function colorBoxIfCompleted() {
 
     for (let i = 0; i < allBoxes.length; i++) {
         for (let j = 0; j < allBoxes[i].length; j++) {
@@ -452,20 +462,41 @@ function checkIsBoxCompleted() {
                     selectable: false
                 })
 
+                // Need to make sure we are not creating and coloring the box again if it has already been colored
                 if (player1.myTurn && allBoxes[j][i].isBoxColored() === false) {
                     rect.fill = player1.myColor;
                     fabricCanvas.add(rect)
+
+                    // Increase player 1's point by 1
+                    player1.myPoints++;
+                    player1Points.innerText = "Player 1: " + player1.myPoints;
+
+                    // Since the box was colored by player 1, player 1 gets one extra turn
+                    extraTurn = true;
                 }
                 else if (player2.myTurn && allBoxes[j][i].isBoxColored() === false) {
                     rect.fill = player2.myColor;
                     fabricCanvas.add(rect)
+
+                    // Increase player 2's point by 1
+                    player2.myPoints++;
+                    player2Points.innerText = "Player 2: " + player2.myPoints;
+
+                    // Since the box was colored by player 2, player 2 gets one extra turn
+                    extraTurn = true;
                 }
                 else if (player3.myTurn && allBoxes[j][i].isBoxColored() === false) {
                     rect.fill = player3.myColor;
                     fabricCanvas.add(rect)
+
+                    // Increase player 3's point by 1
+                    player3.myPoints++;
+                    player3Points.innerText = "Player 3: " + player3.myPoints;
+
+                    // Since the box was colored by player 3, player 3 gets one extra turn
+                    extraTurn = true;
                 }
                 allBoxes[j][i].colored = true;
-
                 fabricCanvas.renderAll()
             }
         }
@@ -474,41 +505,73 @@ function checkIsBoxCompleted() {
 
 // Game ends when all 9 boxes are completed
 function checkWinningCondition() {
-    if (box1.isBoxComplete() && box2.isBoxComplete() && box3.isBoxComplete() &&
+    return (box1.isBoxComplete() && box2.isBoxComplete() && box3.isBoxComplete() &&
         box4.isBoxComplete() && box5.isBoxComplete() && box6.isBoxComplete() &&
-        box7.isBoxComplete() && box8.isBoxComplete() && box9.isBoxComplete()) {
-        return true;
-    }
+        box7.isBoxComplete() && box8.isBoxComplete() && box9.isBoxComplete());
 }
 
+// At the end of the game, this function gets executed signaling that the game is over.
+fabricCanvas.on('mouse:over', function () {
+    if (checkWinningCondition()) {
+        endOFGame.innerHTML = "It's the end of the game! Check out who won at " +
+            "<a href='results.html'>See the Results</a>."
+    }
+});
 
 // When we click on a line, do the following
 fabricCanvas.on('mouse:down', function (e) {
+
     let line = e.target;
 
-    // while(checkWinningCondition() === false) {
-    // }
+    // For extra turns, set variable to current player's turn to true.
+    // Otherwise, it is the next's player's turn
+    function potentialExtraTurnForP1() {
+        if (extraTurn) {
+            player1.myTurn = true;
+        } else {
+            player1.myTurn = false;
+            player2.myTurn = true;
+        }
+        extraTurn = false;
+    }
+
+    function potentialExtraTurnForP2() {
+        if (extraTurn) {
+            player2.myTurn = true;
+        } else {
+            player2.myTurn = false;
+            player3.myTurn = true;
+        }
+        extraTurn = false;
+    }
+
+    function potentialExtraTurnForP3() {
+        if (extraTurn) {
+            player3.myTurn = true;
+        } else {
+            player3.myTurn = false;
+            player1.myTurn = true;
+        }
+        extraTurn = false;
+    }
 
     // Change the color of lines not circles
     function changeLineToPlayerColor() {
         if (line.id !== 'circle') {
             if (player1.myTurn) {
                 line.set('stroke', player1.myColor);
-                checkIsBoxCompleted();
-                player1.myTurn = false;
-                player2.myTurn = true;
+                colorBoxIfCompleted();
+                potentialExtraTurnForP1();
             }
             else if (player2.myTurn) {
                 line.set('stroke', player2.myColor);
-                checkIsBoxCompleted();
-                player2.myTurn = false;
-                player3.myTurn = true;
+                colorBoxIfCompleted();
+                potentialExtraTurnForP2();
             }
             else if (player3.myTurn) {
                 line.set('stroke', player3.myColor);
-                checkIsBoxCompleted();
-                player3.myTurn = false;
-                player1.myTurn = true;
+                colorBoxIfCompleted();
+                potentialExtraTurnForP3();
             }
         }
     }
@@ -722,8 +785,12 @@ fabricCanvas.on('mouse:down', function (e) {
         line.evented = false;
     }
 
-    // checkIsBoxCompleted();;
     fabricCanvas.renderAll();
+
+    // Saving scores for all players in local storage to be able to retrieve them in the results page
+    localStorage.setItem('saved-p1-score', player1.myPoints)
+    localStorage.setItem('saved-p2-score', player2.myPoints)
+    localStorage.setItem('saved-p3-score', player3.myPoints)
 })
 
 

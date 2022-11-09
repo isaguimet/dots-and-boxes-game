@@ -12,6 +12,24 @@
         <a href="game.html">Play Dots And Boxes</a>
         <a href="results.html">See the Results</a>
     </nav>
-
+    <div class="main-container">
+        <h2 id="results-text">Here are the results:</h2>
+        <p id="announce-winner-if-exists"></p>
+        <div id="results-container">
+            <div class="results">
+                <div id="p1-score">Player 1 total score: 0</div>
+            </div>
+            <div class="results">
+                <div id="p2-score">Player 2 total score: 0</div>
+            </div>
+            <div class="results">
+                <div id="p3-score">Player 3 total score: 0</div>
+            </div>
+        </div>
+        <div id="button-container">
+            <button onclick="restartScores()">Restart Scores</button>
+        </div>
+    </div>
+    <script src="results.js"></script>
 </body>
 </html>
